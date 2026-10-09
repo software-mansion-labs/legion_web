@@ -20,7 +20,9 @@ defmodule LegionWeb.Helpers do
       diff < 1_000 -> "just now"
       diff < 60_000 -> "#{div(diff, 1_000)}s ago"
       diff < 3_600_000 -> "#{div(diff, 60_000)}m ago"
-      true -> "#{div(diff, 3_600_000)}h ago"
+      diff < 86_400_000 -> "#{div(diff, 3_600_000)}h ago"
+      diff < 604_800_000 -> "#{div(diff, 86_400_000)}d ago"
+      true -> ms |> DateTime.from_unix!(:millisecond) |> Calendar.strftime("%b %-d, %Y")
     end
   end
 
