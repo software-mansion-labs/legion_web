@@ -47,6 +47,15 @@ defmodule LegionWeb.HelpersTest do
       now = System.system_time(:millisecond)
       assert Helpers.relative_time(now - 7_200_000) == "2h ago"
     end
+
+    test "returns days ago" do
+      now = System.system_time(:millisecond)
+      assert Helpers.relative_time(now - 103 * 3_600_000) == "4d ago"
+    end
+
+    test "returns a date after a week" do
+      assert Helpers.relative_time(1_700_000_000_000) == "Nov 14, 2023"
+    end
   end
 
   describe "format_duration/2" do
